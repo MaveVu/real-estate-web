@@ -1,6 +1,6 @@
 import pandas as pd
 import streamlit as st
-from utilities import get_info
+from utilities import get_info, closest
 
 @st.cache_data
 def load(file):
@@ -24,9 +24,12 @@ def main():
                                     )
     if selected_address:
         info = get_info(selected_address, data)
-        
-        st.write(f"Information for {selected_address}")
-        st.dataframe(info, hide_index=True)
+        info = info.T
+        cl = closest(selected_address, data)
+        st.write('Property details')
+        st.table(info)
+        st.write('Proximities to some **public facilities**')
+        st.table(cl)
 
 
 # Run
