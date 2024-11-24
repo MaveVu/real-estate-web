@@ -1,6 +1,6 @@
 import pandas as pd
 import streamlit as st
-from utilities import get_info, closest
+from utilities import get_info, closest, get_coord
 
 @st.cache_data
 def load(file):
@@ -23,12 +23,14 @@ def main():
                                     placeholder="Select an address"
                                     )
     if selected_address:
+        position = get_coord(selected_address, data)
+        st.markdown(f"[View the (approximate) position of the property on Google Maps]({position})")
         info = get_info(selected_address, data)
         info = info.T
         cl = closest(selected_address, data)
-        st.write('Property details')
+        st.write('Property details:')
         st.table(info)
-        st.write('Proximities to some **public facilities**')
+        st.write('Proximities to some **public facilities**:')
         st.table(cl)
 
 

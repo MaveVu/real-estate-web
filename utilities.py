@@ -33,3 +33,8 @@ def closest(address, df):
         "Distance (km)": [row[i] for i in range (1, n, 2)],
     }
     return pd.DataFrame(close)
+
+def get_coord(address, df):
+    coords = df[df['address'] == address]['geometry']
+    coords = coords.iloc[0][7:-1].split()
+    return f"https://www.google.com/maps?q={coords[1]},{coords[0]}"
