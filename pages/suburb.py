@@ -46,23 +46,7 @@ def main():
             'Value': values,
             'Color': ['blue', 'green', 'orange']
         })
-        
-        # Create the Altair bar chart
-        chart = (
-            alt.Chart(altair_data)
-            .mark_bar()
-            .encode(
-                x=alt.X('Metric', title='Metrics'),
-                y=alt.Y('Value', title='Score', scale=alt.Scale(domain=[0, max(values) * 1.1])),
-                color=alt.Color('Color', scale=None),  # Use the 'Color' column for individual bar colors
-                tooltip=['Metric', 'Value']
-            )
-            .properties(
-                title=f"Scores for {selected_suburb}",
-                width=600,
-                height=400
-            )
-        )
+
 
 
         bars = (
