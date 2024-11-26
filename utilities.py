@@ -99,8 +99,6 @@ def visualize_median(data, selected_suburb):
         x='year:O',  # Ordinal axis for year
         y=alt.Y('median_rental_price:Q', title='price'), # Quantitative axis for median rental price
         tooltip=['year', 'median_rental_price', 'suburb']
-    ).properties(
-        title='Median Rental Prices: Historical vs Predicted'
     )
 
     # Create a line chart for predicted data
