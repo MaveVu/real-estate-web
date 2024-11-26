@@ -2,7 +2,7 @@ import streamlit as st
 import pandas as pd
 import altair as alt
 import random
-from utilities import get_ranking, visualize_score, visualize_median, label_hist_pred
+from utilities import get_ranking, visualize_score, visualize_median, label_hist_pred, add_total_and_rename, get_suburb_info
 
 @st.cache_data
 def load(file):
@@ -15,13 +15,16 @@ def main():
     # Load data
     file = 'data/hist_and_pred_median.csv'
     file_2 = 'data/suburb_score.csv'
+    file_3 = 'data/houses_all_properties.csv'
 
     data = load(file)
     scores = load(file_2)
+    houses = load(file_3)
 
     ranking = get_ranking(scores)
-    label_hist_pred(data)
     ranking.rename(columns={'total_score': 'score'}, inplace=True)
+    label_hist_pred(data)
+    houses = add_total_and_rename(houses)
     
     
     TOTAL = ranking.shape[0]
@@ -39,6 +42,8 @@ def main():
 
     # Check if a suburb is selected
     if selected_suburb:
+        st.write(f'Some information about {selected_suburb}')
+        get_suburb_info(houses, selected_suburb)
         st.write(f'Historical and Predicted Median Prices in {selected_suburb}')
         visualize_median(data, selected_suburb)
         st.write(f'Score for {selected_suburb}')

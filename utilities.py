@@ -92,6 +92,7 @@ def visualize_median(data, selected_suburb):
     data = data[data['suburb'] == selected_suburb]
     historical_data = data[data['label'] == 'historical']
     predicted_data = pd.concat([data[data['year'] == 2024], data[data['label'] == 'predicted']])
+
     historical_chart = alt.Chart(historical_data).mark_line(
         color='blue',
         strokeWidth=6  # Solid line for historical data
@@ -112,8 +113,22 @@ def visualize_median(data, selected_suburb):
         tooltip=['year', 'median_rental_price', 'suburb']
     )
 
-    # Step 3: Combine the two charts
     chart = historical_chart + predicted_chart
-
-    # Step 4: Display the Altair chart in Streamlit
     st.altair_chart(chart, use_container_width=True)
+
+def add_total_and_rename(df):
+    count = df['SA2_Name'].value_counts()
+    df['total_props'] = df['SA2_Name'].map(count)
+    info_cols = ['total_props', 'Net_migration_2022_23', 'ERP_per_km2_2023', 'ERP_increase_2022_23', 
+                 'NUMBER_OF_JOBS_PERSONS_2020-21', 'MEDIAN_INCOME_PERSONS_2020-21']
+    new_cols = ['Total number of rental properties', 'Net migration in 2022-2023', 'ERP per km2 in 2023'
+                , 'Increase of ERP in 2022-2023', 'Number of employed people in 2020-2021',
+                'Median income of people in 2020-2021']
+    cols = dict(zip(info_cols, new_cols))
+    df.rename(columns=cols, inplace=True)
+    return df[['SA2_Name'] + new_cols]
+
+def get_suburb_info(df, selected_suburb):
+    info = pd.DataFrame(df[df['SA2_Name'] == selected_suburb].iloc[0])
+    info = info.iloc[1:]
+    st.table(info)
