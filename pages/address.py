@@ -30,7 +30,7 @@ def main():
         cl = closest(selected_address, data)
         st.write('Property details:')
         st.table(info)
-        st.write('Proximities to some **public facilities**:')
+        st.write('Proximities to some **public facilities** (closest):')
         st.table(cl)
 
 
