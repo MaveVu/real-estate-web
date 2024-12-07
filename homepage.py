@@ -19,6 +19,6 @@ from Domain.com - an Australian real estate website. We used several models (Lin
 and Random Forest) to predict the current rental prices and also give the predictions
 for the rental prices in the next 3 years. After that, we formed a
 metric to rank Victorian suburbs based on their livability and affordability. 
-The code can be found here: https://github.com/MAST30034-AppliedDataScience/project-2-group-real-estate-industry-project-20/ abcabcabc
+The code can be found here: https://github.com/MAST30034-AppliedDataScience/project-2-group-real-estate-industry-project-20/
 """)
 
