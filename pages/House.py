@@ -21,7 +21,11 @@ def main():
     # getting the rf model
     rf_model = get_rf_model()
 
-    
+
+# Run
+if __name__ == '__main__':
+    main()
+
 
 
 
