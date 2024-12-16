@@ -7,7 +7,7 @@ from sklearn.ensemble import RandomForestRegressor
 
 def train_rf_model():
     # reading the data
-    all_properties = pd.read_csv("../data/curated/houses_all_properties.csv")
+    all_properties = pd.read_csv("data/houses_all_properties.csv")
 
     # stratifying using SA2_Name (suburb's name) and filtering out suburbs with < 50 props
     stratify_column = 'SA2_Name'
