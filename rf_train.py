@@ -44,4 +44,4 @@ def train_rf_model():
     # random forest regression
     rf_model = RandomForestRegressor(max_depth = 5)
     rf_model.fit(X_train, y_train)
-    return rf_model
+    return mapping, scaler, rf_model

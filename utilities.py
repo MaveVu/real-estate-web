@@ -132,3 +132,26 @@ def get_suburb_info(df, selected_suburb):
     info = pd.DataFrame(df[df['SA2_Name'] == selected_suburb].iloc[0])
     info = info.iloc[1:]
     st.table(info)
+
+# House page
+def get_min_max_closest(df, selected_suburb):
+    minmax = dict()
+    df_suburb = df[df['SA2_Name'] == selected_suburb]
+    cols = [col for col in df_suburb.columns if 'closest' in col]
+    cols = [col for col in cols if 'distance' in col]
+    cols1 = [col.split('_')[1] for col in cols]
+    for i in range(len(cols)):
+        # +-5 for range
+        mincol = df_suburb[cols[i]].min() - 5 if df_suburb[cols[i]].min() - 5 >= 0 else 0
+        maxcol = df_suburb[cols[i]].max() + 5
+        avg = (mincol+maxcol)//2
+        minmax[cols1[i]] = [mincol, maxcol, avg]
+    return minmax
+
+def get_info_for_train(df, selected_suburb):
+    info = df[df['SA2_Name'] == selected_suburb].iloc[0]
+    columns = ['Net_migration_2021_22', 'Net_migration_2022_23', 'ERP_per_km2_2021',
+                'ERP_per_km2_2022', 'ERP_per_km2_2023', 'ERP_increase_2020_21', 'ERP_increase_2021_22', 'ERP_increase_2022_23',
+                'NUMBER_OF_JOBS_PERSONS_2020-21', 'MEDIAN_INCOME_PERSONS_2020-21']
+    return info[columns]
+
