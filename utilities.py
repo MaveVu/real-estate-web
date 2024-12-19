@@ -155,3 +155,7 @@ def get_info_for_train(df, selected_suburb):
                 'NUMBER_OF_JOBS_PERSONS_2020-21', 'MEDIAN_INCOME_PERSONS_2020-21']
     return info[columns]
 
+
+def avg_schools(df, selected_suburb):
+    df_suburb = df[df['SA2_Name'] == selected_suburb]
+    return round(df_suburb['num_schools'].mean())
